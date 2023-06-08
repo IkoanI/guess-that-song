@@ -35,7 +35,7 @@ export default function Loading() {
         )
     }
     else {
-        return <Navigate to="/quiz" state={{ profile: profData, songs: songData }} />
+        return <Navigate to="/guess-that-song/quiz" state={{ profile: profData, songs: songData }} />
     }
 }
 
@@ -45,7 +45,7 @@ async function getAccessToken(clientId, code) {
     params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
-    params.append("redirect_uri", "http://localhost:5173/loading");
+    params.append("redirect_uri", `${window.location.origin}/guess-that-song/loading`);
     params.append("code_verifier", verifier);
 
     const response = await fetch("https://accounts.spotify.com/api/token", {

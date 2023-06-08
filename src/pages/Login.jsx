@@ -25,7 +25,7 @@ async function redirectToAuthCodeFlow(clientId) {
     const params = new URLSearchParams();
     params.append("client_id", clientId);
     params.append("response_type", "code");
-    params.append("redirect_uri", "http://localhost:5173/loading");
+    params.append("redirect_uri", `${window.location.href}loading`);
     params.append("scope", "user-read-private user-read-email streaming user-read-playback-state user-modify-playback-state");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
