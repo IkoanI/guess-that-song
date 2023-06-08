@@ -1,0 +1,39 @@
+.quizWrapper{
+    margin-top: 200px;
+}
+
+.webPlayer{
+    margin-top: 20px;
+}
+
+.playButton{
+    background-color:#1DB954;
+	border-radius:30px;
+	border:1px solid #1DB954;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:20px;
+	padding:20px 40px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #2f6627;
+	margin-top: 20px;
+}
+
+.searchBar{
+    margin-top: 20px;
+}
+
+.submitButton{
+    background-color:#1DB954;
+	border-radius:30px;
+	border:1px solid #1DB954;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:20px;
+	padding:20px 40px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #2f6627;
+	margin-top: 20px;
+}
