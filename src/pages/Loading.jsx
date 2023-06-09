@@ -35,7 +35,7 @@ export default function Loading() {
         )
     }
     else {
-        return <Navigate to="/guess-that-song/quiz" state={{ profile: profData, songs: songData }} />
+        return <Navigate to="/quiz" state={{ profile: profData, songs: songData }} />
     }
 }
 
