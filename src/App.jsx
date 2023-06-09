@@ -7,9 +7,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path= 'guess-that-song/' element={<Login />} />
-        <Route path='guess-that-song/loading' element={<Loading />} />
-        <Route path= 'guess-that-song/quiz' element={<Quiz />} />
+        <Route path= '/' element={<Login />} />
+        <Route path='/loading' element={<Loading />} />
+        <Route path= '/quiz' element={<Quiz />} />
       </Routes>
     </BrowserRouter>
   )

@@ -45,7 +45,7 @@ async function getAccessToken(clientId, code) {
     params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
-    params.append("redirect_uri", `${window.location.origin}/guess-that-song/loading`);
+    params.append("redirect_uri", `${window.location.origin}/loading`);
     params.append("code_verifier", verifier);
 
     const response = await fetch("https://accounts.spotify.com/api/token", {
