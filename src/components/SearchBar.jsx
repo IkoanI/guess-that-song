@@ -15,8 +15,8 @@ async function getOptions(inputValue){
     });
 
     const data = await result.json();
-    const songResults =  data.tracks.items.map( ({name}) => {
-        return {label: name, value: name}
+    const songResults =  data.tracks.items.map( ({artists, name}) => {
+        return {label: `${name}, ${artists[0].name}`, value: name}
     })
 
     return songResults
@@ -25,6 +25,24 @@ async function getOptions(inputValue){
 const searchStyle = {
     menu: (baseStyles) => ({
       ...baseStyles,
-      color:"black"
+      color:"black",
+      borderRadius: '32px',
+      textAlign: 'left' 
     }),
-}
+
+    menuList: (baseStyles) => ({
+      ...baseStyles,
+      color:"black",
+      borderRadius: '32px',
+      textAlign: 'left', 
+      "::-webkit-scrollbar": {
+        width: "0px",
+        height: "0px",
+      },
+
+    }),
+
+    dropdownIndicator: () => null,
+    indicatorSeparator: () => null,
+    
+  }

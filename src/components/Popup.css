@@ -8,19 +8,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .popUpContent{
     position: relative;
     padding: 32px;
-    width: 100%;
+    width: 50%;
+    height: 60%;
     max-width: 640px;
-    background-color: white;
+    background-color: #f5f5f5;
     color: black;
+    border-radius: 20px;
 }
 
-.poppopUpContent .closeButton{
-    position: absolute;
-    top: 16px;
-    right: 16px;
+.closeButton{
+    position: relative;
+    background-color:#1DB954;
+	border-radius:30px;
+	border:1px solid #1DB954;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:20px;
+	padding:20px 40px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #2f6627;
+	margin-top: 20px;
 }

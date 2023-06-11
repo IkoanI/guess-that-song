@@ -1,5 +1,5 @@
 .quizWrapper{
-    margin-top: 200px;
+    margin-top: 100px;
 }
 
 .webPlayer{
@@ -17,11 +17,12 @@
 	padding:20px 40px;
 	text-decoration:none;
 	text-shadow:0px 0px 0px #2f6627;
-	margin-top: 20px;
+	margin-top: 100px;
 }
 
 .searchBar{
-    margin-top: 20px;
+    margin-top: 200px;
+	display: flex
 }
 
 .submitButton{
@@ -32,8 +33,17 @@
 	cursor:pointer;
 	color:#ffffff;
 	font-size:20px;
-	padding:20px 40px;
+	padding:9px 20px;
 	text-decoration:none;
 	text-shadow:0px 0px 0px #2f6627;
-	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.search{
+	margin-top: 2px;
+	flex: 3
+}
+
+.result-msg{
+	margin-top: 50px;
 }

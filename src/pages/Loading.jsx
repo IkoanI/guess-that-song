@@ -5,14 +5,11 @@ import { clientId } from "../App";
 export default function Loading() {
     const params = new URLSearchParams(window.location.search)
     const code = params.get("code")
-    const [profData, setProfData] = useState(null)
     const [songData, setSongData] = useState(null)
 
     async function updateData() {
         const accessToken = await getAccessToken(clientId, code);
         localStorage.setItem("access-token", accessToken)
-        const profile = await fetchProfile(accessToken);
-        setProfData(profile)
         const playlists = await fetchPlaylists(accessToken);
         var songs = new Set()
         for (let playlist of playlists) {
@@ -35,7 +32,7 @@ export default function Loading() {
         )
     }
     else {
-        return <Navigate to="/quiz" state={{ profile: profData, songs: songData }} />
+        return <Navigate to="/quiz" state={{ songs: songData }} />
     }
 }
 
@@ -57,14 +54,6 @@ async function getAccessToken(clientId, code) {
     const result = await response.json()
     return result.access_token;
 
-}
-
-async function fetchProfile(token) {
-    const result = await fetch("https://api.spotify.com/v1/me", {
-        method: "GET", headers: { Authorization: `Bearer ${token}` }
-    });
-
-    return await result.json();
 }
 
 async function fetchPlaylists(token) {
@@ -92,8 +81,11 @@ async function fetchAllSongs(token, playlistURL) {
     while (next) {
         var response = await fetchSongs(token, next)
         var nextSongs = response.items.map((i) => {
-            if (i.track) {
-                return {name: i.track.name, uri: i.track.uri, duration: i.track.duration_ms}
+            if (i.track && !i.track.is_local) {
+                return {name: i.track.name, 
+                        uri: i.track.uri, 
+                        duration: i.track.duration_ms, 
+                        image: i.track.album.images[1].url}
             }
         })
         songs = songs.concat(nextSongs)

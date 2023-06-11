@@ -13,8 +13,9 @@ export default function Quiz() {
   const [userAnswer, setUserAnswer] = useState(null)
   const [triggerPopup, setTriggerPopup] = useState(false)
   const [resultMsg, setResultMsg] = useState(null)
+  const [resultImg, setResultImg] = useState(null)
   const { state } = useLocation()
-  const { profile, songs } = state
+  const { songs } = state
   const songsArray = Array.from(songs)
   const token = localStorage.getItem("access-token")
 
@@ -37,12 +38,13 @@ export default function Quiz() {
   function handleSubmit() {
     let msg
     if (userAnswer === currSong.name) {
-      msg = 'Correct!'
+      msg = `Correct! Answer is: ${currSong.name}`
     }
     else {
       msg = `Wrong, answer is: ${currSong.name}`
     }
     setResultMsg(msg)
+    setResultImg(currSong.image)
     setTriggerPopup(true)
     setAnswered(answered + 1)
   }
@@ -59,8 +61,7 @@ export default function Quiz() {
     <>
       <div className="quizWrapper">
         <div className="details">
-          <p>{profile.display_name}</p>
-          <p>Questions answered: {answered}</p>
+          <h1>Question {answered + 1}</h1>
         </div>
 
         <div className="webPlayer">
@@ -74,17 +75,17 @@ export default function Quiz() {
         </div>
 
         <div className="searchBar">
-          <SearchBar handleSelect={handleSelect} />
-        </div>
-
-        <div>
+          <div className="search"> 
+            <SearchBar handleSelect={handleSelect} />
+          </div>
           <button className="submitButton" onClick={handleSubmit}>Submit</button>
         </div>
 
       </div>
 
       <Popup trigger={triggerPopup} setTrigger={setTriggerPopup}>
-        <p> {resultMsg} </p>
+        <img src={`${resultImg}`}/>
+        <h1 className="result-msg"> {resultMsg} </h1>
       </Popup>
     </>
   )
