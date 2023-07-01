@@ -9,7 +9,7 @@ export default function Popup(props) {
         <div className='popupWrapper'>
             <div className='popUpContent'>
                 {props.children}
-                <button className="closeButton" onClick={() => props.setTrigger(false)}>Continue</button>
+                <button className="closeButton" onClick={() => props.continue()}>Continue</button>
             </div>
         </div>
     )

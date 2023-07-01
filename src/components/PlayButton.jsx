@@ -1,7 +1,7 @@
 import { usePlayerDevice, useSpotifyPlayer } from "react-spotify-web-playback-sdk"
 import "../pages/Quiz.css"
 
-export default function PlayButton({ trackUri, trackStart }) {
+export default function PlayButton({ trackUri, trackStart, playbackTime }) {
   const player = useSpotifyPlayer()
   const device = usePlayerDevice()
 
@@ -10,7 +10,7 @@ export default function PlayButton({ trackUri, trackStart }) {
       <button 
       className="playButton" 
       id="startButton" 
-      onClick={() => play(trackUri, device, player, trackStart)}
+      onClick={() => play(trackUri, device, player, trackStart, playbackTime)}
       >
         Play
       </button>
@@ -20,7 +20,7 @@ export default function PlayButton({ trackUri, trackStart }) {
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-async function play(trackUri, device, player, trackStart) {
+async function play(trackUri, device, player, trackStart, playbackTime) {
   player.activateElement()
   await fetch(
     `https://api.spotify.com/v1/me/player/play?device_id=${device.device_id}`,
@@ -34,9 +34,12 @@ async function play(trackUri, device, player, trackStart) {
     },
   );
   const btn = document.getElementById('startButton')
+  const submitBtn = document.getElementById('submitButton')
   btn.disabled = true
-  await sleep(5000)
+  submitBtn.disabled = true
+  await sleep(playbackTime)
   await player.pause()
   btn.disabled = false
+  submitBtn.disabled = false
 }
 
