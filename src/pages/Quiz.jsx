@@ -1,10 +1,9 @@
-import { useLocation } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import SearchBar from "../components/SearchBar"
 import { useCallback, useEffect, useState } from "react"
 import { WebPlaybackSDK } from "react-spotify-web-playback-sdk"
 import PlayButtton from "../components/PlayButton"
 import Popup from "../components/Popup"
-import { useNavigate } from "react-router-dom"
 
 export default function Quiz() {
   const [answered, setAnswered] = useState(0)
@@ -66,7 +65,7 @@ export default function Quiz() {
     return (
       <div className="result-screen">
         <h1>Score: {score}/{quizLength}</h1>
-        <button onClick={() => navigate('/')} className="playButton">Back</button>
+        <button onClick={() => navigate('/options')} className="back-button">Back</button>
       </div>
     )
   }

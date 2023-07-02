@@ -16,23 +16,23 @@
 }
 
 .desc{
-    text-align: left;
+    margin-left: 20%;
+    margin-right: auto;
 }
 
 .select{
     margin-left: auto;
-    margin-right: 0;
+    margin-right: 20%;
 }
 
 .continueBtn{
-    background-color:#1DB954;
-	border-radius:30px;
-	border:1px solid #1DB954;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
 	font-size:20px;
 	padding:20px 40px;
-	text-decoration:none;
-	text-shadow:0px 0px 0px #2f6627;
+}
+
+.loading-spinner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40%;
 }
