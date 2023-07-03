@@ -10,9 +10,10 @@ export default function Loading() {
     const [playlists, setPlaylists] = useState(null)
 
     async function updateData() {
-        const accessToken = await getAccessToken(clientId, code)
-        localStorage.setItem("access-token", accessToken)
-        const userPlaylists = await fetchPlaylists(accessToken)
+        const tokens = await getAccessToken(clientId, code)
+        localStorage.setItem("access-token", tokens.access_token)
+        localStorage.setItem("refresh_token", tokens.refresh_token)
+        const userPlaylists = await fetchPlaylists(tokens.access_token)
         setPlaylists(userPlaylists)
     }
 
@@ -59,7 +60,7 @@ async function getAccessToken(clientId, code) {
     });
 
     const result = await response.json()
-    return result.access_token;
+    return result
 
 }
 

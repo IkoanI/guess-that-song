@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react"
 import { WebPlaybackSDK } from "react-spotify-web-playback-sdk"
 import PlayButtton from "../components/PlayButton"
 import Popup from "../components/Popup"
+import { clientId } from "../App"
 
 export default function Quiz() {
   const [answered, setAnswered] = useState(0)
@@ -15,11 +16,11 @@ export default function Quiz() {
   const { state } = useLocation()
   const { songs, playbackTime, quizLength } = state
   const songsArray = Array.from(songs)
-  const token = localStorage.getItem("access-token")
   const navigate = useNavigate()
 
   const getOAuthToken = useCallback(callback => {
-    callback(token)
+    const token = getNewToken()
+    callback(token);
   }, []);
 
   function getRandomSong() {
@@ -81,7 +82,7 @@ export default function Quiz() {
         <div className="webPlayer">
           <WebPlaybackSDK
             deviceName="Guess That Song"
-            getOAuthToken={getOAuthToken}
+            getOAuthToken= {getOAuthToken}
             volume={0.5}
           >
             <PlayButtton trackUri={currSong.details.uri} trackStart={currSong.start} playbackTime={playbackTime} />
@@ -105,3 +106,19 @@ export default function Quiz() {
   )
 }
 
+async function getNewToken(){
+    const params = new URLSearchParams();
+    params.append("client_id", clientId);
+    params.append("grant_type", "refresh_token");
+    params.append("refresh_token", localStorage.getItem('refresh_token'));
+
+    const response = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: params
+    });
+
+    const result = await response.json()
+    localStorage.setItem('refresh_token', result.refresh_token)
+    return result.access_token
+}
