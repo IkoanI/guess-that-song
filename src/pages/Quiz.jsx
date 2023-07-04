@@ -1,4 +1,4 @@
-import { useNavigate, useLocation, Navigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import SearchBar from "../components/SearchBar"
 import { useCallback, useEffect, useState } from "react"
 import { WebPlaybackSDK } from "react-spotify-web-playback-sdk"
@@ -31,8 +31,7 @@ export default function Quiz() {
   }, [answered])
 
   const getOAuthToken = useCallback(callback => {
-    const token = getNewToken()
-    callback(token);
+    callback(getNewToken());
   }, []);
 
   function handleSelect(choice) {
@@ -121,10 +120,10 @@ export default function Quiz() {
 }
 
 async function getNewToken() {
-  const params = new URLSearchParams();
-  params.append("client_id", clientId);
-  params.append("grant_type", "refresh_token");
-  params.append("refresh_token", localStorage.getItem('refresh_token'));
+  const params = new URLSearchParams()
+  params.append("client_id", clientId)
+  params.append("grant_type", "refresh_token")
+  params.append("refresh_token", localStorage.getItem('refresh_token'))
 
   const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
@@ -133,6 +132,9 @@ async function getNewToken() {
   });
 
   const result = await response.json()
-  localStorage.setItem('refresh_token', result.refresh_token)
-  return result.access_token
+  if(!result.error){
+    localStorage.setItem('refresh_token', result.refresh_token)
+    return result.access_token
+  }
+  
 }
