@@ -39,7 +39,7 @@ export default function Loading() {
                     visible={true}
                 />
             </div>
-            
+
         )
     }
 }

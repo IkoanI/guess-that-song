@@ -11,6 +11,10 @@ export default function Options() {
     const [songData, setSongData] = useState(null)
     const [submitted, setSubmitted] = useState(false)
     const playlists = JSON.parse(localStorage.getItem("playlists"))
+    const playlistOptions = playlists.map((playlist) => {
+        return { label: playlist.name, value: playlist }
+    }
+    )
 
     async function updateData() {
         const accessToken = localStorage.getItem("access-token")
@@ -25,7 +29,7 @@ export default function Options() {
     }
 
     useEffect(() => {
-        if(submitted){
+        if (submitted) {
             updateData()
         }
     }, [submitted])
@@ -34,10 +38,10 @@ export default function Options() {
         return <Navigate to="/quiz" state={{ songs: songData, playbackTime: playbackTime, quizLength: quizLength }} />
     }
 
-    else if (submitted){
-        return(
+    else if (submitted) {
+        return (
             <div className="loading-spinner">
-               <Bars
+                <Bars
                     height="80"
                     width="80"
                     color="#1DB954"
@@ -45,9 +49,9 @@ export default function Options() {
                     wrapperStyle={{}}
                     wrapperClass=""
                     visible={true}
-                    /> 
+                />
             </div>
-            
+
         )
     }
 
@@ -92,10 +96,7 @@ export default function Options() {
                                 setExcluded(newExcluded)
                             }}
                             styles={style}
-                            options={playlists.map((playlist) => {
-                                return { label: playlist.name, value: playlist }
-                            }
-                            )}
+                            options={playlistOptions}
                             className="select"
                         />
                     </div>

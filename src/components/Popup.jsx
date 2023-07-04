@@ -1,7 +1,7 @@
 import "./Popup.css"
 
 export default function Popup(props) {
-    if(!props.trigger){
+    if (!props.trigger) {
         return null
     }
 

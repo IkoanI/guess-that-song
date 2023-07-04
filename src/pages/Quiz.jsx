@@ -5,6 +5,7 @@ import { WebPlaybackSDK } from "react-spotify-web-playback-sdk"
 import PlayButtton from "../components/PlayButton"
 import Popup from "../components/Popup"
 import { clientId } from "../App"
+import { Bars } from "react-loader-spinner"
 
 export default function Quiz() {
   const [answered, setAnswered] = useState(0)
@@ -18,21 +19,25 @@ export default function Quiz() {
   const songsArray = Array.from(songs)
   const navigate = useNavigate()
 
+  function getRandomSong() {
+    const randomSong = Math.floor(Math.random() * songsArray.length)
+    const randomStart = Math.floor(Math.random() * (songsArray[randomSong].duration - playbackTime))
+    const randSong = { details: songsArray[randomSong], start: randomStart }
+    console.log(randSong)
+    setCurrSong(randSong)
+  }
+
+  useEffect(() => {
+    getRandomSong()
+  }, [answered])
+
   const getOAuthToken = useCallback(callback => {
     const token = getNewToken()
     callback(token);
   }, []);
 
-  function getRandomSong() {
-    const randomSong = Math.floor(Math.random() * songsArray.length)
-    const randomStart = Math.floor(Math.random() * (songsArray[randomSong].duration - playbackTime))
-    const randSong = { details: songsArray[randomSong], start: randomStart }
-    setCurrSong(randSong)
-  }
-
   function handleSelect(choice) {
     setUserAnswer(choice.value)
-
   }
 
   function handleSubmit() {
@@ -53,16 +58,26 @@ export default function Quiz() {
     setAnswered(answered + 1)
   }
 
-  useEffect(() => {
-    getRandomSong()
-  }, [answered])
+
 
   if (!currSong) {
-    return <p>Loading...</p>
+    return (
+      <div className="loading-spinner">
+        <Bars
+          height="80"
+          width="80"
+          color="#1DB954"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    )
+
   }
 
   if (answered == quizLength) {
-    
     return (
       <div className="result-screen">
         <h1>Score: {score}/{quizLength}</h1>
@@ -82,7 +97,7 @@ export default function Quiz() {
         <div className="webPlayer">
           <WebPlaybackSDK
             deviceName="Guess That Song"
-            getOAuthToken= {getOAuthToken}
+            getOAuthToken={getOAuthToken}
             volume={0.5}
           >
             <PlayButtton trackUri={currSong.details.uri} trackStart={currSong.start} playbackTime={playbackTime} />
@@ -106,19 +121,19 @@ export default function Quiz() {
   )
 }
 
-async function getNewToken(){
-    const params = new URLSearchParams();
-    params.append("client_id", clientId);
-    params.append("grant_type", "refresh_token");
-    params.append("refresh_token", localStorage.getItem('refresh_token'));
+async function getNewToken() {
+  const params = new URLSearchParams();
+  params.append("client_id", clientId);
+  params.append("grant_type", "refresh_token");
+  params.append("refresh_token", localStorage.getItem('refresh_token'));
 
-    const response = await fetch("https://accounts.spotify.com/api/token", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: params
-    });
+  const response = await fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: params
+  });
 
-    const result = await response.json()
-    localStorage.setItem('refresh_token', result.refresh_token)
-    return result.access_token
+  const result = await response.json()
+  localStorage.setItem('refresh_token', result.refresh_token)
+  return result.access_token
 }

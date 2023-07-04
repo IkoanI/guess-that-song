@@ -1,4 +1,4 @@
-.options{
+.options {
     height: 500px;
     width: 100%;
     display: flex;
@@ -7,7 +7,7 @@
     align-items: center;
 }
 
-.row-option{
+.row-option {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -15,22 +15,22 @@
     align-items: center;
 }
 
-.desc{
+.desc {
     margin-left: 20%;
     margin-right: auto;
 }
 
-.select{
+.select {
     margin-left: auto;
     margin-right: 20%;
 }
 
-.continueBtn{
-	font-size:20px;
-	padding:20px 40px;
+.continueBtn {
+    font-size: 20px;
+    padding: 20px 40px;
 }
 
-.loading-spinner{
+.loading-spinner {
     display: flex;
     justify-content: center;
     align-items: center;

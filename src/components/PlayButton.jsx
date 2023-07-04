@@ -1,4 +1,5 @@
-import { usePlayerDevice, useSpotifyPlayer } from "react-spotify-web-playback-sdk"
+import { useWebPlaybackSDKReady, usePlayerDevice, useSpotifyPlayer } from "react-spotify-web-playback-sdk"
+import { Bars } from "react-loader-spinner";
 import "../pages/Quiz.css"
 import ProgressBar from "@ramonak/react-progress-bar"
 import Slider from '@mui/material/Slider';
@@ -7,6 +8,24 @@ import VolumeUp from '@mui/icons-material/VolumeUp';
 import { useState } from "react"
 
 export default function PlayButton({ trackUri, trackStart, playbackTime }) {
+  const webPlaybackSDKReady = useWebPlaybackSDKReady()
+
+  if (!webPlaybackSDKReady) {
+    return (
+      <div className="loading-spinner">
+        <Bars
+          height="80"
+          width="80"
+          color="#1DB954"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    )
+  }
+
   const player = useSpotifyPlayer()
   const device = usePlayerDevice()
   const [currTime, setCurrTime] = useState(0)
@@ -27,8 +46,8 @@ export default function PlayButton({ trackUri, trackStart, playbackTime }) {
     }, 10)
   }
 
-  function handleVolumeChange(event, newValue){
-    player.setVolume(newValue/100)
+  function handleVolumeChange(event, newValue) {
+    player.setVolume(newValue / 100)
   }
 
   return (

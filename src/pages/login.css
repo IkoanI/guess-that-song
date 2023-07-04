@@ -1,18 +1,18 @@
-.login{
+.login {
 	margin-top: 200px;
 }
 
-.title{
-    font-size: 60px;
+.title {
+	font-size: 60px;
 }
 
-.description{
-    font-size: 20px;
-    margin-top: 30px;
+.description {
+	font-size: 20px;
+	margin-top: 30px;
 }
 
-.login-button{
-	font-size:20px;
-	padding:20px 40px;
+.login-button {
+	font-size: 20px;
+	padding: 20px 40px;
 	margin-top: 20px;
 }

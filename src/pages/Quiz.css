@@ -1,63 +1,63 @@
-.quizWrapper{
-    margin-top: 100px;
+.quizWrapper {
+	margin-top: 100px;
 }
 
-.webPlayer{
-    margin-top: 20px;
+.webPlayer {
+	margin-top: 20px;
 }
 
-.player-wrapper{
+.player-wrapper {
 	margin-top: 10%;
 }
 
-.play-and-volume{
+.play-and-volume {
 	display: flex;
 	margin-top: 10%;
 }
 
-.playButton{
-	font-size:20px;
-	padding:20px 40px;
+.playButton {
+	font-size: 20px;
+	padding: 20px 40px;
 	margin-left: 44%;
 }
 
-.playButton:disabled{
+.playButton:disabled {
 	opacity: 40%;
 	cursor: default;
 }
 
 
-.volume-control{
+.volume-control {
 	margin: auto 0 auto auto;
 }
 
 
-.searchBar{
-    margin-top: 10%;
+.searchBar {
+	margin-top: 10%;
 	display: flex
 }
 
-.submitButton{
-	font-size:20px;
-	padding:9px 20px;
+.submitButton {
+	font-size: 20px;
+	padding: 9px 20px;
 	margin-left: 20px;
 }
 
-.submitButton:disabled{
+.submitButton:disabled {
 	opacity: 40%;
 	cursor: default;
 }
 
-.search{
+.search {
 	margin-top: 2px;
 	flex: 3
 }
 
-.result-msg{
+.result-msg {
 	margin-top: 50px;
 }
 
-.result-screen{
+.result-screen {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -65,8 +65,8 @@
 	padding-top: 30%;
 }
 
-.back-button{
-	font-size:20px;
-	padding:20px 40px;
+.back-button {
+	font-size: 20px;
+	padding: 20px 40px;
 	margin-top: 5%;
 }

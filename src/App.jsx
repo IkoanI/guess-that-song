@@ -8,10 +8,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path= '/' element={<Login />} />
+        <Route path='/' element={<Login />} />
         <Route path='/loading' element={<Loading />} />
         <Route path='/options' element={<Options />} />
-        <Route path= '/quiz' element={<Quiz />} />
+        <Route path='/quiz' element={<Quiz />} />
       </Routes>
     </BrowserRouter>
   )
