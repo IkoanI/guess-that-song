@@ -21,8 +21,12 @@ export default function Quiz() {
   
   function getRandomSong() {
     var randomSong = Math.floor(Math.random() * songsArray.length)
+    while(!songsArray[randomSong]){
+      randomSong = Math.floor(Math.random() * songsArray.length)
+    }
     const randomStart = Math.floor(Math.random() * (songsArray[randomSong].duration - playbackTime))
     const randSong = { details: songsArray[randomSong], start: randomStart }
+    
     setCurrSong(randSong)
   }
 
