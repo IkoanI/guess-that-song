@@ -5,23 +5,19 @@ import { Bars } from "react-loader-spinner";
 import './Loading.css'
 
 export default function Options() {
-    const [excluded, setExcluded] = useState(new Set())
     const [playbackTime, setPlaybackTime] = useState(5000)
     const [quizLength, setQuizLength] = useState(20)
     const [songData, setSongData] = useState(null)
     const [submitted, setSubmitted] = useState(false)
+    const [excluded, setExcluded] = useState(new Set())
     const playlists = JSON.parse(localStorage.getItem("playlists"))
-    const playlistOptions = playlists.map((playlist) => {
-        return { label: playlist.name, value: playlist }
-    }
-    )
-
+    
     async function updateData() {
         const accessToken = localStorage.getItem("access-token")
         var songs = new Set()
         for (let playlist of playlists) {
-            if (!excluded.has(playlist.id)) {
-                var nextSongs = await fetchAllSongs(accessToken, playlist.tracks.href)
+            if (!excluded.has(playlist.value.id)) {
+                var nextSongs = await fetchAllSongs(accessToken, playlist.value.tracks.href)
                 nextSongs.forEach(item => songs.add(item))
             }
         }
@@ -81,6 +77,13 @@ export default function Options() {
 
         }
 
+        function customFilter(candidate, input){
+            if(!excluded.has(candidate.value.id)){
+               return true 
+            }
+            return false
+        }
+
         return (
             <>
                 <div className="options">
@@ -90,13 +93,16 @@ export default function Options() {
                             isMulti
                             onChange={(chosenPlaylists) => {
                                 var newExcluded = new Set()
-                                for (let playlist of chosenPlaylists) {
+                                for(let playlist of chosenPlaylists){
                                     newExcluded.add(playlist.value.id)
                                 }
                                 setExcluded(newExcluded)
                             }}
                             styles={style}
-                            options={playlistOptions}
+                            options={playlists}
+                            filterOption={customFilter}
+                            isSearchable={false}
+                            isOptionDisabled={() => excluded.size >= playlists.length - 1}
                             className="select"
                         />
                     </div>
@@ -138,7 +144,6 @@ export default function Options() {
 
                 <button onClick={() => {
                     setSubmitted(true)
-                    updateData()
                 }} className="continueBtn">
                     Continue
                 </button>
@@ -164,7 +169,7 @@ async function fetchAllSongs(token, playlistURL) {
     while (next) {
         var response = await fetchSongs(token, next)
         var nextSongs = response.items.map((i) => {
-            if (i.track && !i.track.is_local) {
+            if (i.track && !i.track.is_local && i.track.duration_ms) {
                 return {
                     name: i.track.name,
                     uri: i.track.uri,

@@ -8,26 +8,9 @@ import VolumeUp from '@mui/icons-material/VolumeUp';
 import { useState } from "react"
 
 export default function PlayButton({ trackUri, trackStart, playbackTime }) {
-  const webPlaybackSDKReady = useWebPlaybackSDKReady()
-
-  if (!webPlaybackSDKReady) {
-    return (
-      <div className="loading-spinner">
-        <Bars
-          height="80"
-          width="80"
-          color="#1DB954"
-          ariaLabel="bars-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-        />
-      </div>
-    )
-  }
-
   const player = useSpotifyPlayer()
   const device = usePlayerDevice()
+  const webPlaybackSDKReady = useWebPlaybackSDKReady()
   const [currTime, setCurrTime] = useState(0)
 
   function countdown() {
@@ -48,6 +31,22 @@ export default function PlayButton({ trackUri, trackStart, playbackTime }) {
 
   function handleVolumeChange(event, newValue) {
     player.setVolume(newValue / 100)
+  }
+
+  if (!webPlaybackSDKReady || player === null) {
+    return (
+      <div className="loading-spinner">
+        <Bars
+          height="80"
+          width="80"
+          color="#1DB954"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    )
   }
 
   return (

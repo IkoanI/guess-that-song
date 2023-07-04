@@ -14,7 +14,7 @@ export default function Loading() {
         localStorage.setItem("access-token", tokens.access_token)
         localStorage.setItem("refresh_token", tokens.refresh_token)
         const userPlaylists = await fetchPlaylists(tokens.access_token)
-        setPlaylists(userPlaylists)
+        setPlaylists(userPlaylists.map( p => ({label: p.name, value: p}) ))
     }
 
     useEffect(() => {

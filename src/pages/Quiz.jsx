@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate, useLocation, Navigate } from "react-router-dom"
 import SearchBar from "../components/SearchBar"
 import { useCallback, useEffect, useState } from "react"
 import { WebPlaybackSDK } from "react-spotify-web-playback-sdk"
@@ -18,12 +18,11 @@ export default function Quiz() {
   const { songs, playbackTime, quizLength } = state
   const songsArray = Array.from(songs)
   const navigate = useNavigate()
-
+  
   function getRandomSong() {
-    const randomSong = Math.floor(Math.random() * songsArray.length)
+    var randomSong = Math.floor(Math.random() * songsArray.length)
     const randomStart = Math.floor(Math.random() * (songsArray[randomSong].duration - playbackTime))
     const randSong = { details: songsArray[randomSong], start: randomStart }
-    console.log(randSong)
     setCurrSong(randSong)
   }
 
